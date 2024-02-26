@@ -171,14 +171,14 @@ const  enum AndroidPermissions{
   // <string>Requires access to photo library to upload media.</string>
   
        let isAuthorized = false;
-       let result = await myPermissions.check(myPermissions.AndroidPermissions.READ_IMAGES);
+       let result = await myPermissions.check(myPermissions.AndroidPermissions.READ_IMAGES, myPermissions.AndroidPermissions.READ_EXTERNAL_STORAGE);
        
          if (result[0] === 'authorized') {
           console.log('authorized')
            isAuthorized = true;
           } else {
             console.log('asking permission')
-           let requestResult = await myPermissions.request(myPermissions.AndroidPermissions.READ_IMAGES);
+           let requestResult = await myPermissions.request(myPermissions.AndroidPermissions.READ_IMAGES, myPermissions.AndroidPermissions.READ_EXTERNAL_STORAGE);
            if(requestResult[0]==='authorized'){
             isAuthorized = true; console.log('ret true')
            }else{
