@@ -1,0 +1,45 @@
+<StackLayout  class="form">
+  
+    <Label text="TOT DRIVER" fontSize = "20" id="title" borderTopColor="red" borderTopWidth="2" borderBottomColor="red" borderBottomWidth="2" borderLeftColor="red" borderLeftWidth="2" borderRightColor="red" borderRightWidth="2"></Label>
+  
+    <Label text="WELCOME" fontSize = "20" id="welcomeText"></Label>
+   
+      <StackLayout *ngIf="!isLoading" class="input-field">
+          <TextField
+           class="input"
+           name="username"
+           hint="Enter Username"
+           keyboardType="email"
+           [autocorrect]="false"
+           autocapitalizationType="none"
+           (onblur)="activeUsernameListener()"
+          [(ngModel)]="username"
+          (ngModelChange) = "listenToUsername()"
+          ></TextField>
+          <Label class="label" *ngIf="!usernameControlIsValid" text="Please enter a valid Username"></Label>
+      </StackLayout>
+      <StackLayout *ngIf="!isLoading" class="input-field">
+          <TextField
+            class="input"
+            hint="Enter Password"
+            [secure]="true"
+             returnKeyType="go"
+             [autocorrect]="false"
+            [(ngModel)]="password"
+            type="password"
+          (ngModelChange) = "checkPassword()"
+          ></TextField>
+          <Label class="label" *ngIf="!passwordControlIsValid" text="Please enter a valid Password"></Label>
+      </StackLayout>
+      <Button class="button"
+          text="Submit"
+          (tap)="onSubmit()"
+          *ngIf="!isLoading"
+      ></Button><FlexboxLayout justifyContent="center" alignItems="center" *ngIf="isSignInLoading">
+        <ActivityIndicator [busy]="isSignInLoading"></ActivityIndicator>
+</FlexboxLayout>
+      <FlexboxLayout justifyContent="center" alignItems="center" *ngIf="isLoading">
+              <ActivityIndicator [busy]="isLoading"></ActivityIndicator>
+      </FlexboxLayout>
+      <Label text="Create Account" fontSize = "13" id="createAccountBtn" (tap)="jumpToRegsitration()"></Label>
+  </StackLayout>

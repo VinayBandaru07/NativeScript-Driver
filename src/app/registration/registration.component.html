@@ -1,0 +1,93 @@
+
+<ScrollView>
+
+    <StackLayout class="form">
+      <Label text="Create Account" fontSize="30" id="title" borderTopColor="red" borderTopWidth="2" borderBottomColor="red" borderBottomWidth="2" borderLeftColor="red" borderLeftWidth="2" borderRightColor="red" borderRightWidth="2"></Label>
+      <StackLayout *ngIf="!isLoading" class="input-field">
+          <TextField class="input" name="firstName" hint="First Name*" [(ngModel)]="firstName"></TextField>
+          <Label class="label" *ngIf="!firstNameControlIsValid" text="Please enter First Name" color="red"></Label>
+      </StackLayout>
+    
+      <StackLayout *ngIf="!isLoading" class="input-field">
+          <TextField class="input" name="middleName" hint="Middle Name" [(ngModel)]="middleName"></TextField>
+      </StackLayout>
+    
+      <StackLayout *ngIf="!isLoading" class="input-field">
+          <TextField class="input" name="lastName" hint="Last Name*" [(ngModel)]="lastName"></TextField>
+          <Label class="label" *ngIf="!lastNameControlIsValid" text="Please enter first again Name" color="red"></Label>
+      </StackLayout>
+    
+      <StackLayout *ngIf="!isLoading" class="input-field">
+          <TextField class="input" name="email" hint="Email*" keyboardType="email" [(ngModel)]="email"></TextField>
+          <Label class="label" *ngIf="!emailControlIsValid" text="Please enter a valid Email" color="red"></Label>
+      </StackLayout>
+    
+      <StackLayout *ngIf="!isLoading" class="input-field">
+          <TextField class="input" name="phone" hint="Phone No: *" keyboardType="phone" [(ngModel)]="phone"></TextField>
+          <Label class="label" *ngIf="!phoneControlIsValid" text="Please enter Phone No" color="red"></Label>
+      </StackLayout>
+    
+      <StackLayout *ngIf="!isLoading" class="input-field">
+          <Label text="Home Address:" fontSize="16"></Label>
+          <TextField class="input" name="homeAddressLine1" hint="Line 1*" [(ngModel)]="homeAddress.line1"></TextField>
+          <Label class="label" *ngIf="!homeAddressLine1ControlIsValid" text="Please enter Home Address Line 1" color="red"></Label>
+          <TextField class="input" name="homeAddressLine2" hint="Line 2" [(ngModel)]="homeAddress.line2"></TextField>
+          <Label class="label" *ngIf="!homeAddressLine2ControlIsValid" text="Please enter Home Address Line 2" color="red"></Label>
+          <TextField class="input" name="homeAddressLine3" hint="Line 3" [(ngModel)]="homeAddress.line3"></TextField>
+          <Label class="label" *ngIf="!homeAddressLine3ControlIsValid" text="Please enter Home Address Line 3" color="red"></Label>
+          <TextField class="input" name="zipCode" hint="Zip Code*" [(ngModel)]="zipCode"></TextField>
+          <Label class="label" *ngIf="!zipCodeControlIsValid" text="Please enter Zip Code" color="red"></Label>
+      </StackLayout>
+    
+      <StackLayout *ngIf="!isLoading" class="input-field">
+          <TextField class="input" name="drivingLicenseNo" hint="Driving License No" [(ngModel)]="drivingLicenseNo"></TextField>
+      </StackLayout>
+    
+      <StackLayout *ngIf="!isLoading" class="input-field">
+          <Button text="Upload Driving License" (tap)="onUploadDrivingLicense()"></Button>
+          <Label class="label" *ngIf="!uploadDrivingLicenseControlIsValid" text="Please upload Driving License" color="red"></Label>
+      </StackLayout>
+      <StackLayout orientation="horizontal" verticalAlignment="center" *ngIf="uploadDrivingLicense">
+        <Label [text]="licensePath.name" class="file-label"></Label>
+        <Button text="X" (tap)="clearLicense()" ></Button>
+      </StackLayout>
+    
+      <StackLayout *ngIf="!isLoading" class="input-field">
+        <input type="file" class="input" name="uploadPhoto" accept="image/*" (change)="onUploadPhoto($event)">
+        <Button text="Upload Photo" (tap)="onUploadPhoto()"></Button>
+          <Label class="label" *ngIf="!uploadPhotoControlIsValid" text="Please upload Photo" color="red"></Label>
+      </StackLayout>
+
+      <StackLayout orientation="horizontal" verticalAlignment="center" *ngIf="uploadPhoto">
+        <Label [text]="photoPath.name" class="file-label"></Label>
+        <Button text="x" (tap)="clearProfilePhoto()" ></Button>
+      </StackLayout>
+    
+      <StackLayout *ngIf="!isLoading" class="input-field">
+          <TextField class="input" name="userName" hint="User Name*" [(ngModel)]="userName"></TextField>
+          <Label class="label" *ngIf="!userNameControlIsValid" text="Please enter User Name" color="red"></Label>
+      </StackLayout>
+    
+      <StackLayout *ngIf="!isLoading" class="input-field">
+          <TextField class="input" name="password" hint="Password*" secure="true" [(ngModel)]="password"></TextField>
+          <Label class="label" *ngIf="!passwordControlIsValid" text="Please enter Password" color="red"></Label>
+      </StackLayout>
+    
+      <StackLayout *ngIf="!isLoading" class="input-field">
+          <TextField class="input" name="reEnterPassword" hint="Re-enter Password*" secure="true" [(ngModel)]="reEnterPassword"></TextField>
+          <Label class="label" *ngIf="!reEnterPasswordControlIsValid" text="Passwords do not match" color="red"></Label>
+      </StackLayout>
+      <FlexboxLayout justifyContent="center" alignItems="center" *ngIf="isSignUpLoading">
+        <ActivityIndicator [busy]="isSignUpLoading"></ActivityIndicator>
+</FlexboxLayout>
+    
+      <Button class="button" text="Submit" (tap)="onSubmit()"></Button>
+    
+      <FlexboxLayout justifyContent="center" alignItems="center" *ngIf="isLoading">
+          <ActivityIndicator [busy]="isLoading"></ActivityIndicator>
+      </FlexboxLayout>
+      <Label text="Login" fontSize = "13" id="loginBtn" (tap)="jumpToLogin()"></Label>
+    </StackLayout>
+    
+    </ScrollView>
+    

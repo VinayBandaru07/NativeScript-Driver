@@ -1,0 +1,40 @@
+
+.form {
+    margin-left: 30;
+    margin-right: 30;
+    margin-top: 100vh;
+    flex-grow: 2;
+    /* vertical-align: top; */
+    padding: 20;
+  }
+
+  #welcomeText{
+    color: palevioletred;
+    text-align: center;
+    margin-bottom: 10;
+  }
+
+  #title{
+    position: fixed;
+    color: white;
+    text-align: center;
+    margin-bottom: 20;
+    background-color: palevioletred;
+  }
+
+  .input-field{
+    margin-top: 5;
+  }
+
+  .label{
+    margin-left: 20;
+    margin-bottom: 10;
+    display: block;
+    color: red;
+  }
+
+  #createAccountBtn{
+    margin-top: 20;
+    color: palevioletred;
+    text-align: center;
+  }
