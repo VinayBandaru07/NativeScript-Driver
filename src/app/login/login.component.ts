@@ -65,7 +65,7 @@ export class LoginComponent implements OnInit {
         this.isSignInLoading = true;
       this.auth.signInWithEmailAndPassword(this.username.toString(), this.password.toString()).then((creds)=>{
         console.log('successfully signed in: ' + creds.user.email.toString())
-        this.router.navigate(["/home"], navigationExtras);
+        this.router.navigate(["/editProfile"], navigationExtras);
       }).catch((e)=>{
         this.isSignInLoading = false;
         if(e instanceof FirebaseError){

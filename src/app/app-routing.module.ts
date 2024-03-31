@@ -5,12 +5,15 @@ import { NativeScriptRouterModule, NSEmptyOutletComponent } from '@nativescript/
 import {LoginComponent} from './login/login.component'
 import {HomeComponent} from './home/home.component'
 import {RegistrationComponent} from './registration/registration.component'
+import {ReportComponent}from './report_issue/report.component'
+import {EditProfileComponent} from './edit_profile/editprofile.component'
 
 export const routes: Routes = [
   { path: "", component: LoginComponent },
   { path: "home", component: HomeComponent },
-  {path: "registration", component:RegistrationComponent}
-
+  {path: "registration", component:RegistrationComponent},
+  {path:"report", component:ReportComponent},
+  {path:"editProfile", component: EditProfileComponent},
 ]
 
 
@@ -21,5 +24,5 @@ export const routes: Routes = [
 export class AppRoutingModule {}
 
 export const navigatableComponents = [
-  LoginComponent, HomeComponent, RegistrationComponent
+  LoginComponent, HomeComponent, RegistrationComponent, ReportComponent, EditProfileComponent
 ]

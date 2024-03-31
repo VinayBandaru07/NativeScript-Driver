@@ -13,7 +13,7 @@ const  enum AndroidPermissions{
   import { filePicker, MediaType } from '@angelengineering/filepicker';
   import * as myPermissions from 'ns-permissions';
   import { Storage, TaskEvent, TaskSnapshot } from '@nativescript/firebase-storage';
-  import {  File } from '@nativescript/core';
+  import {  Device, File } from '@nativescript/core';
   import { TaskState } from '@nativescript/firebase-storage/common';
   import { Router } from '@angular/router';
   
@@ -171,20 +171,46 @@ const  enum AndroidPermissions{
   // <string>Requires access to photo library to upload media.</string>
   
        let isAuthorized = false;
-       let result = await myPermissions.check(myPermissions.AndroidPermissions.READ_IMAGES, myPermissions.AndroidPermissions.READ_EXTERNAL_STORAGE);
+
+       if(Device.os == "Android"){
+        const androidVersion = Device.osVersion;
+            console.log(`Android Version: ${androidVersion}`);
+            if(Number(androidVersion) >=13){
+              let result = await myPermissions.check(myPermissions.AndroidPermissions.READ_IMAGES);
        
          if (result[0] === 'authorized') {
           console.log('authorized')
            isAuthorized = true;
           } else {
             console.log('asking permission')
-           let requestResult = await myPermissions.request(myPermissions.AndroidPermissions.READ_IMAGES, myPermissions.AndroidPermissions.READ_EXTERNAL_STORAGE);
+           let requestResult = await myPermissions.request(myPermissions.AndroidPermissions.READ_IMAGES);
            if(requestResult[0]==='authorized'){
             isAuthorized = true; console.log('ret true')
            }else{
             isAuthorized = false;console.log('ret false')
            }
             }
+            }
+            else{
+              let result = await myPermissions.check(myPermissions.AndroidPermissions.READ_EXTERNAL_STORAGE);
+       
+         if (result[0] === 'authorized') {
+          console.log('authorized')
+           isAuthorized = true;
+          } else {
+            console.log('asking permission')
+           let requestResult = await myPermissions.request(myPermissions.AndroidPermissions.READ_EXTERNAL_STORAGE);
+           if(requestResult[0]==='authorized'){
+            isAuthorized = true; console.log('ret true')
+           }else{
+            isAuthorized = false;console.log('ret false')
+           }
+            }
+            }
+       }
+       
+
+       
           
         console.log('returned')
   return isAuthorized;
@@ -226,7 +252,7 @@ const  enum AndroidPermissions{
   
    async uploadFileToFirebaseStorage(filePath: File, uploadFileType : UploadFileType): Promise<boolean> {
       // Get a reference to the storage service
-      console.log('uploading')
+      
   
       // Get a reference to the storage root
       const storageRef = this.storage.ref(`uploads/${this.email}/${uploadFileType.toString()}` + `${filePath.extension}`);

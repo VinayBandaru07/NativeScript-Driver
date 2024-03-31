@@ -1,0 +1,8 @@
+<StackLayout>
+    <TextView  hint="Type your issue" [(ngModel)]="reportText" (ngModelChange) = "checkCharLength()"  editable="true" height="200" class="txtbx"></TextView>
+    <Label class="label" *ngIf="!textAreaControlIsValid" text="Minimum 10 characters required"></Label>
+    <Button text="Send Report" (tap)="sendReport()" class="send-button"></Button>
+    <FlexboxLayout justifyContent="center" alignItems="center" *ngIf="isReportSubmissionLoading">
+        <ActivityIndicator [busy]="isReportSubmissionLoading"></ActivityIndicator>
+</FlexboxLayout>
+</StackLayout>

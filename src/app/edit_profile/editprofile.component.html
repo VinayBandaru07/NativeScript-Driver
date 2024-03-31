@@ -1,0 +1,34 @@
+<StackLayout>
+<StackLayout *ngIf="!isLoading">
+<StackLayout  class="input-field">
+    <TextField class="input" name="email" hint="Email*" keyboardType="email" [(ngModel)]="email"></TextField>
+   
+</StackLayout>
+
+<StackLayout  class="input-field">
+    <TextField class="input" name="phone" hint="Phone No: *" keyboardType="phone" [(ngModel)]="phone"></TextField>
+   
+</StackLayout>
+
+<StackLayout class="input-field">
+    <Label text="Home Address:" fontSize="16"></Label>
+    <TextField class="input" name="homeAddressLine1" hint="Line 1*" [(ngModel)]="homeAddress.line1"></TextField>
+    
+    <TextField class="input" name="homeAddressLine2" hint="Line 2" [(ngModel)]="homeAddress.line2"></TextField>
+    
+    <TextField class="input" name="homeAddressLine3" hint="Line 3" [(ngModel)]="homeAddress.line3"></TextField>
+    
+    <TextField class="input" name="zipCode" hint="Zip Code*" [(ngModel)]="zipCode"></TextField>
+    
+</StackLayout>
+<FlexboxLayout justifyContent="center" alignItems="center" *ngIf="isSubmitLoading">
+    <ActivityIndicator [busy]="isSubmitLoading"></ActivityIndicator>
+</FlexboxLayout>
+<StackLayout><Button class="button" text="Submit" (tap)="onSubmit()"></Button></StackLayout>
+</StackLayout>
+
+
+    <FlexboxLayout justifyContent="center" alignItems="center" *ngIf="isLoading" class="spinner">
+        <ActivityIndicator [busy]="isLoading"></ActivityIndicator>
+</FlexboxLayout>
+</StackLayout>

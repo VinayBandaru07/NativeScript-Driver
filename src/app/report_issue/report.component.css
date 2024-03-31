@@ -1,0 +1,16 @@
+.send-button {
+  margin-top: 30;
+}
+
+.txtbx{
+  border: 10px solid;
+  border-color: black;
+  padding: 50px;
+  background-color: pink;
+  font-size: medium;
+}
+
+.label{
+  color: red;
+  padding-left: 50px;
+}
