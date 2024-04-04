@@ -112,7 +112,9 @@ const  enum AndroidPermissions{
             homeAddressLine2 : this.homeAddress.line2,
             homeAddressLine3 : this.homeAddress.line3,
             zipCode : this.zipCode,
-            driverLicenseNo : this.drivingLicenseNo
+            driverLicenseNo : this.drivingLicenseNo,
+            checkInDate : 'init',
+            checkInStatus : false
           }).then((doc)=>{
             console.log('user created successfully')
             this.uploadFileToFirebaseStorage(this.licensePath, UploadFileType.licensePhoto).then((val)=>{

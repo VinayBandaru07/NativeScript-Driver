@@ -2,8 +2,9 @@
 import { Injectable } from "@angular/core";
 import { FirebaseApp, FirebaseError, firebase } from '@nativescript/firebase-core'
 import { Auth } from "@nativescript/firebase-auth";
-import { DocumentData, DocumentReference, DocumentSnapshot, Firestore } from "@nativescript/firebase-firestore";
+import { DocumentData, DocumentReference, DocumentSnapshot, Firestore, Timestamp } from "@nativescript/firebase-firestore";
 import {EditProfileOptions} from '../classes/EditProfileOptions'
+import { BehaviorSubject, Subject } from "rxjs";
 
 
 
@@ -15,9 +16,14 @@ export class FirestoreService {
     private firestore: Firestore;
     private fireAuth : Auth;
 
+    currentUserDetails : Subject<DocumentSnapshot<DocumentData>> = new  Subject()
+    lastCheckInDate : string
+
     constructor() {
+        console.log(Timestamp.now().toDate())
         this.firestore =  firebase().firestore();
         this.fireAuth = firebase().auth()
+        this.getCurrentUserDetails()
     }
 
     addReport(reportText: string): Promise<DocumentReference<DocumentData>> {
@@ -44,4 +50,59 @@ export class FirestoreService {
      getProfile() : Promise<DocumentSnapshot<DocumentData>>{
           return  this.firestore.collection('drivers').doc(this.fireAuth.currentUser.uid).get()
     }
+
+    async getToken(){
+        return await this.fireAuth.currentUser.getIdToken()
+    }
+
+    saveToken(token : string){
+        this.firestore.collection('drivers').doc(this.fireAuth.currentUser.uid).update({
+            token:token
+        }).then((data)=>{
+            console.log("Updated succss")
+        })
+    }
+
+    getCurrentUserDetails(){
+        let date = Timestamp.now().toDate()
+  let dateFormatted = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`
+        this.firestore.collection('drivers').doc(this.fireAuth.currentUser.uid).get().then((data)=>{
+            this.currentUserDetails.next(data)
+            this.lastCheckInDate = data.data()['checkInDate'] ?? dateFormatted
+            console.log(JSON.stringify(data.data()))
+        })
+    }
+
+    setCheckInProfile(){
+        let date = Timestamp.now().toDate()
+  let dateFormatted = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`
+        return  this.firestore.collection('drivers').doc(this.fireAuth.currentUser.uid).update({
+            "checkInStatus" : true,
+            "checkInDate" : dateFormatted
+        })
+    }
+
+    setCheckOutProfile(){
+        return  this.firestore.collection('drivers').doc(this.fireAuth.currentUser.uid).update({
+            "checkInStatus" : false
+        })
+    }
+
+    setCheckInDate(){
+        let date = Timestamp.now().toDate()
+  let dateFormatted = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`
+       return this.firestore.collection('drivers').doc(this.fireAuth.currentUser.uid).collection('days').doc(Timestamp.now().toDate().toDateString()).set({
+            "checkInStatus" : true,
+            "checkInTime" : dateFormatted
+        })
+    }
+
+    setCheckOutDate(){
+       return this.firestore.collection('drivers').doc(this.fireAuth.currentUser.uid).collection('days').doc(this.lastCheckInDate).set({
+            "checkInStatus" : false,
+            "checkOutTime" : Timestamp.now()
+        })
+    }
+    
+
 }

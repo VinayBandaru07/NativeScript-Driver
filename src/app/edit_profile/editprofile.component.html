@@ -19,7 +19,6 @@
     <TextField class="input" name="homeAddressLine3" hint="Line 3" [(ngModel)]="homeAddress.line3"></TextField>
     
     <TextField class="input" name="zipCode" hint="Zip Code*" [(ngModel)]="zipCode"></TextField>
-    
 </StackLayout>
 <FlexboxLayout justifyContent="center" alignItems="center" *ngIf="isSubmitLoading">
     <ActivityIndicator [busy]="isSubmitLoading"></ActivityIndicator>

@@ -7,6 +7,8 @@ import {HomeComponent} from './home/home.component'
 import {RegistrationComponent} from './registration/registration.component'
 import {ReportComponent}from './report_issue/report.component'
 import {EditProfileComponent} from './edit_profile/editprofile.component'
+import {ExperimentComponent} from './experiment/experiment.component'
+import {AttendanceComponent} from './attendance/attendance.component'
 
 export const routes: Routes = [
   { path: "", component: LoginComponent },
@@ -14,8 +16,9 @@ export const routes: Routes = [
   {path: "registration", component:RegistrationComponent},
   {path:"report", component:ReportComponent},
   {path:"editProfile", component: EditProfileComponent},
+  {path:"experiment", component: ExperimentComponent},
+  {path:"attendance", component:AttendanceComponent}
 ]
-
 
 @NgModule({
   imports: [NativeScriptRouterModule.forRoot(routes)],
@@ -24,5 +27,5 @@ export const routes: Routes = [
 export class AppRoutingModule {}
 
 export const navigatableComponents = [
-  LoginComponent, HomeComponent, RegistrationComponent, ReportComponent, EditProfileComponent
+  LoginComponent, HomeComponent, RegistrationComponent, ReportComponent, EditProfileComponent, ExperimentComponent,AttendanceComponent
 ]

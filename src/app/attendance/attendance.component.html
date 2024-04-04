@@ -1,0 +1,7 @@
+<StackLayout>
+    <Button class="button" text="check-in" (tap)="onClickCheck()" *ngIf="!isCheckIn && !isLoading"></Button>
+    <Button class="button" text="check-out" (tap)="onClickCheck()" *ngIf="isCheckIn && !isLoading"></Button>
+    <FlexboxLayout justifyContent="center" alignItems="center" *ngIf="isLoading" class="spinner">
+    <ActivityIndicator [busy]="isLoading"></ActivityIndicator>
+</FlexboxLayout>
+</StackLayout>
