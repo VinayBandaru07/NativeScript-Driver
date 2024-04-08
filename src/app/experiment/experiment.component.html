@@ -1,1 +1,55 @@
-<StackLayout></StackLayout>
+<ScrollView>
+<StackLayout class="comp">
+        <ng-container *ngFor="let group of groupedStudents; let i = index">
+            <StackLayout class="organization">
+                <StackLayout orientation="horizontal" (tap)="group.showStudents = !group.showStudents" class="orgRow">
+                    <Label [text]="group.showStudents ? 'X' : 'V'" class="toggleIcon"></Label>
+                    <Label [text]="group.organization" class="orgName"></Label>
+                    <Label [text]="group.orgPlace" class="orgPlace"></Label>
+                    
+                </StackLayout>
+                <StackLayout *ngIf="group.showStudents">
+                    <ng-container *ngFor="let student of group.students; let j = index" >
+                        <StackLayout orientation="horizontal"  [class.accepted]="student.accepted" [class.rejected]="student.rejected" class="studentRow">
+                            <Label [text]="student.name"  class="studentName"></Label>
+                            <Image src="res://green_tick" class="optButtons" (tap)="onAcceptButtonClick(i, j)"></Image>
+                            <Image src="res://red_cross" class="optButtons" (tap)="onRejectButtonClick(i, j)"></Image>
+                        </StackLayout>
+                    </ng-container>
+                </StackLayout>
+                <Button *ngIf="group.showStudents" text="accept all" id="optButtons" (tap)="acceptAllInOrg(i)" class="acceptAllBtn"></Button>
+            </StackLayout>
+        </ng-container>
+</StackLayout>
+</ScrollView>
+
+<!-- <ScrollView>
+    <StackLayout padding="12" >
+      <StackLayout text="v1" height="50" *ngFor="let group of groupedStudents; let i = index"><Label text="v2" height="50" ></Label></StackLayout>
+      <StackLayout text="v1" height="50" *ngFor="let group of groupedStudents; let i = index"><Label text="v2" height="50" ></Label></StackLayout>
+      <StackLayout text="v1" height="50" *ngFor="let group of groupedStudents; let i = index"><Label text="v2" height="50" ></Label></StackLayout>
+      <StackLayout text="v1" height="50" *ngFor="let group of groupedStudents; let i = index"><Label text="v2" height="50" ></Label></StackLayout>
+      <StackLayout text="v1" height="50" *ngFor="let group of groupedStudents; let i = index"><Label text="v2" height="50" ></Label></StackLayout>
+      <StackLayout text="v1" height="50" *ngFor="let group of groupedStudents; let i = index"><Label text="v2" height="50" ></Label></StackLayout>
+      <StackLayout text="v1" height="50" *ngFor="let group of groupedStudents; let i = index"><Label text="v2" height="50" ></Label></StackLayout>
+      <StackLayout text="v1" height="50" *ngFor="let group of groupedStudents; let i = index"><Label text="v2" height="50" ></Label></StackLayout>
+      <StackLayout text="v1" height="50" *ngFor="let group of groupedStudents; let i = index"><Label text="v2" height="50" ></Label></StackLayout>
+      <StackLayout text="v1" height="50" *ngFor="let group of groupedStudents; let i = index"><Label text="v2" height="50" ></Label></StackLayout>
+    </StackLayout>
+  </ScrollView> -->
+
+<!-- <StackLayout class="comp">
+    <ScrollLayout>
+    <StackLayout *ngFor="let group of groupedStudents, let i = index" class="organization">
+        <StackLayout orientation="horizontal"><Label text="V"></Label> <Label [text]="group.organization" class="orgName"></Label></StackLayout>
+        <StackLayout *ngFor="let student of group.students, let j = index">
+            <StackLayout orientation="horizontal" class="studentRow">
+                <Label [text]="student.name" [class.accepted]="student.accepted" [class.rejected] = "student.rejected" class="studentName"></Label>
+                <Image src="https://i.ibb.co/LzKHGJ0/green-tick.png" class="optButtons" (tap)="onAcceptButtonClick(i, j)"></Image>
+                <Image src="https://i.ibb.co/p1HskXr/image-from-rawpixel-id-6664430-png.png" class="optButtons" (tap)="onRejectButtonClick(i, j)"></Image>
+            </StackLayout>
+        </StackLayout>
+        <Button text="accept all" id="optButtons" (tap)="acceptAllInOrg(i)" class="acceptAllBtn"></Button>
+    </StackLayout>
+</ScrollLayout>
+</StackLayout> -->

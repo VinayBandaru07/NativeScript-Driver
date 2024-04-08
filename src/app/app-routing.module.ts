@@ -11,12 +11,12 @@ import {ExperimentComponent} from './experiment/experiment.component'
 import {AttendanceComponent} from './attendance/attendance.component'
 
 export const routes: Routes = [
-  { path: "", component: LoginComponent },
+  { path: "login", component: LoginComponent },
   { path: "home", component: HomeComponent },
   {path: "registration", component:RegistrationComponent},
   {path:"report", component:ReportComponent},
   {path:"editProfile", component: EditProfileComponent},
-  {path:"experiment", component: ExperimentComponent},
+  {path:"", component: ExperimentComponent},
   {path:"attendance", component:AttendanceComponent}
 ]
 

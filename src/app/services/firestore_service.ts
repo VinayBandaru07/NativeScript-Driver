@@ -18,12 +18,14 @@ export class FirestoreService {
 
     currentUserDetails : Subject<DocumentSnapshot<DocumentData>> = new  Subject()
     lastCheckInDate : string
+    studentsAssigned : Subject<Array<Object>> = new Subject()
 
     constructor() {
         console.log(Timestamp.now().toDate())
         this.firestore =  firebase().firestore();
         this.fireAuth = firebase().auth()
-        this.getCurrentUserDetails()
+        // this.getCurrentUserDetails()
+        this.getStudents()
     }
 
     addReport(reportText: string): Promise<DocumentReference<DocumentData>> {
@@ -103,6 +105,36 @@ export class FirestoreService {
             "checkOutTime" : Timestamp.now()
         })
     }
-    
+
+    getStudents(){
+        this.firestore.collection('drivers').doc("D7BJt50vzmetsgE2oTfq2vxhp9I3").collection('days').doc("06-04-2024").collection('students').get().then((data)=>{
+            let studentsArray : Array<Object> = []
+            data.docs.forEach((doc)=>{
+                studentsArray.push({
+                    id : doc.id,
+                    ...doc.data()
+                })
+                this.studentsAssigned.next(studentsArray)
+            })
+        })
+    }
+
+    acceptPickup(studentId: string){
+       return this.firestore.collection('drivers').doc("D7BJt50vzmetsgE2oTfq2vxhp9I3").collection('days').doc('06-04-2024').collection('students').doc(studentId).update({
+            accepted : true,
+            rejected : false
+        })
+    }
+
+    rejectPickup(studentId: string){
+       return this.firestore.collection('drivers').doc("D7BJt50vzmetsgE2oTfq2vxhp9I3").collection('days').doc('06-04-2024').collection('students').doc(studentId).update({
+            accepted : false,
+            rejected : true
+        })
+    }
+
+    acceptAllInOrg(orgId){
+        
+    }
 
 }

@@ -6,6 +6,7 @@ import { AppRoutingModule, navigatableComponents, routes } from './app-routing.m
 import { AppComponent } from './app.component'
 
 
+
 @NgModule({
   bootstrap: [AppComponent],
   imports: [NativeScriptModule, AppRoutingModule, FormsModule,NativeScriptModule,
